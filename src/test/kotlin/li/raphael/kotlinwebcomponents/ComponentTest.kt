@@ -54,7 +54,7 @@ class ComponentTest {
     }
 
     private fun Document.renderHtml() = StringBuilder().appendHTML().html {
-        render(this)
+        render()
     }.toString()
 
 }

@@ -9,11 +9,9 @@ class Context(
 class Document(context: Context) : Component<Context, HTML, FlowContent>(context) {
     fun navigation(init: Navigation.() -> Unit) = initComponent(Navigation(context), init)
 
-    override fun render(tag: HTML) {
-        tag.apply {
-            body {
-                renderChildren(this)
-            }
+    override fun HTML.render() {
+        body {
+            renderChildren(this)
         }
     }
 
@@ -27,23 +25,19 @@ data class NavigationItem(
 class Navigation(context: Context) : Component<Context, FlowContent, UL>(context) {
     fun item(name: String, url: String) = initComponent(NavigationItem(name, url))
 
-
-    override fun render(tag: FlowContent) {
-        tag.apply {
-            nav {
-                comment("this is a comment")
-                ul {
-                    children.forEach {
-                        val navItem = it as NavigationItem
-                        li {
-                            a(href = navItem.url) {
-                                +navItem.name
-                            }
+    override fun FlowContent.render() {
+        nav {
+            comment("this is a comment")
+            ul {
+                children.forEach {
+                    val navItem = it as NavigationItem
+                    li {
+                        a(href = navItem.url) {
+                            +navItem.name
                         }
                     }
                 }
             }
-
         }
     }
 }
