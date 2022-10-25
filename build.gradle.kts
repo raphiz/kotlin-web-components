@@ -13,7 +13,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    api("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
+    implementation(kotlin("reflect"))
 }
 
 tasks.test {
