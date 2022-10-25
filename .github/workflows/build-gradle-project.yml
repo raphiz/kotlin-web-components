@@ -12,5 +12,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: Run build with Gradle Wrapper
-        run: ./gradlew build --warning-mode=fail
-
+        run: ./gradlew publish --warning-mode=fail
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

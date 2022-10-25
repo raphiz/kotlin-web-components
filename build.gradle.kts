@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-library`
+    `maven-publish`
     kotlin("jvm") version "1.7.10"
 }
 
@@ -34,4 +35,22 @@ java {
 tasks.withType<ValidatePlugins>().configureEach {
     failOnWarning.set(true)
     enableStricterValidation.set(true)
+}
+
+publishing {
+    publications {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/raphiz/kotlin-web-components")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+        create<MavenPublication>("kotlinWebComponents") {
+            from(components["java"])
+        }
+    }
 }
