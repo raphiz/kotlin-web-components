@@ -6,14 +6,13 @@ class Context(
     val linkName: String
 )
 
-class NavigationItem(
-    context: Context,
+data class NavigationItem(
     val name: String,
     val url: String,
-) : Component<Context>(context)
+) : SemanticComponent
 
 class Navigation(context: Context) : Component<Context>(context) {
-    fun item(name: String, url: String) = initComponent(NavigationItem(context, name, url))
+    fun item(name: String, url: String) = initComponent(NavigationItem(name, url))
 
     override fun FlowContent.render() {
         nav {

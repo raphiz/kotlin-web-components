@@ -6,6 +6,7 @@ import kotlin.reflect.full.declaredMemberProperties
 
 interface SemanticComponent {
     val children: List<SemanticComponent>
+        get() = emptyList()
     val elementAttributes: Map<String, Any?>
         get() = this::class.declaredMemberProperties
             .filter { it.visibility == PUBLIC }
@@ -16,9 +17,9 @@ interface SemanticComponent {
 
 @ComponentMarker
 abstract class Component<C>(val context: C) : SemanticComponent {
-    override val children = arrayListOf<Component<C>>()
+    override val children = arrayListOf<SemanticComponent>()
 
-    protected fun <T : Component<C>> initComponent(component: T, init: (T.() -> Unit)? = null): T {
+    protected fun <T : SemanticComponent> initComponent(component: T, init: (T.() -> Unit)? = null): T {
         if (init != null) component.init()
         children.add(component)
         return component
