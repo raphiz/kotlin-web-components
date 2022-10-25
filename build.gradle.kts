@@ -31,3 +31,7 @@ java {
     }
 }
 
+tasks.withType<ValidatePlugins>().configureEach {
+    failOnWarning.set(true)
+    enableStricterValidation.set(true)
+}
