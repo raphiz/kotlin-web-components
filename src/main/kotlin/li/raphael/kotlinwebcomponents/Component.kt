@@ -1,6 +1,6 @@
 package li.raphael.kotlinwebcomponents
 
-import kotlinx.html.FlowContent
+import kotlinx.html.Tag
 import kotlin.reflect.KVisibility.PUBLIC
 import kotlin.reflect.full.declaredMemberProperties
 
@@ -15,8 +15,26 @@ interface SemanticComponent {
         get() = this::class.simpleName!!
 }
 
+interface HtmlComponent<RECEIVER : Tag, CHILD_RECEIVER : Tag> : SemanticComponent {
+
+    fun render(tag: RECEIVER)
+
+    fun renderChildren(tagConsumer: CHILD_RECEIVER) {
+        children
+            .filterIsInstance<HtmlComponent<*, *>>()
+            .forEach { child ->
+                @Suppress("UNCHECKED_CAST")
+                (child as HtmlComponent<CHILD_RECEIVER, *>).render(tagConsumer)
+            }
+    }
+
+}
+
+
 @ComponentMarker
-abstract class Component<C>(val context: C) : SemanticComponent {
+abstract class Component<C, RECEIVER : Tag, CHILD_RECEIVER : Tag>(val context: C) : 
+    SemanticComponent,
+    HtmlComponent<RECEIVER, CHILD_RECEIVER> {
     override val children = arrayListOf<SemanticComponent>()
 
     protected fun <T : SemanticComponent> initComponent(component: T, init: (T.() -> Unit)? = null): T {
@@ -24,16 +42,6 @@ abstract class Component<C>(val context: C) : SemanticComponent {
         children.add(component)
         return component
     }
-
-    protected fun renderChildren(tagConsumer: FlowContent) {
-        children.forEach { child ->
-            child.apply {
-                tagConsumer.render()
-            }
-        }
-    }
-
-    protected open fun FlowContent.render() = renderChildren(this)
 
     override fun toString() = TreePrinter.print(this)
 }
