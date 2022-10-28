@@ -5,7 +5,7 @@ import kotlinx.html.Tag
 
 
 @ComponentMarker
-abstract class AbstractComponent<RECEIVER : Tag, CHILD_RECEIVER : Tag> : 
+abstract class Component<RECEIVER : Tag, CHILD_RECEIVER : Tag> : 
     SemanticComponent,
     HtmlComponent<RECEIVER, CHILD_RECEIVER> {
     override val children = arrayListOf<SemanticComponent>()
@@ -19,4 +19,4 @@ abstract class AbstractComponent<RECEIVER : Tag, CHILD_RECEIVER : Tag> :
     override fun toString() = TreePrinter.print(this)
 }
 
-typealias FlowContentComponent = AbstractComponent<FlowContent, FlowContent>
+typealias FlowContentComponent = Component<FlowContent, FlowContent>
