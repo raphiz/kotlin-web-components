@@ -1,5 +1,6 @@
 package li.raphael.kotlinwebcomponents
 
+import kotlinx.html.FlowContent
 import kotlinx.html.Tag
 
 
@@ -17,3 +18,5 @@ abstract class AbstractComponent<RECEIVER : Tag, CHILD_RECEIVER : Tag> :
 
     override fun toString() = TreePrinter.print(this)
 }
+
+typealias FlowContentComponent = AbstractComponent<FlowContent, FlowContent>
