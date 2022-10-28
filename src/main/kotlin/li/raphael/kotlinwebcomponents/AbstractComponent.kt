@@ -4,7 +4,7 @@ import kotlinx.html.Tag
 
 
 @ComponentMarker
-abstract class Component<C, RECEIVER : Tag, CHILD_RECEIVER : Tag>(val context: C) : 
+abstract class AbstractComponent<RECEIVER : Tag, CHILD_RECEIVER : Tag> : 
     SemanticComponent,
     HtmlComponent<RECEIVER, CHILD_RECEIVER> {
     override val children = arrayListOf<SemanticComponent>()

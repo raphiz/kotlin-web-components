@@ -6,7 +6,7 @@ class Context(
     val linkName: String
 )
 
-class Document(context: Context) : Component<Context, HTML, FlowContent>(context) {
+class Document(val context: Context) : AbstractComponent<HTML, FlowContent>() {
     fun navigation(init: Navigation.() -> Unit) = initComponent(Navigation(context), init)
 
     override fun HTML.render() {
@@ -22,7 +22,7 @@ data class NavigationItem(
     val url: String,
 ) : SemanticComponent
 
-class Navigation(context: Context) : Component<Context, FlowContent, UL>(context) {
+class Navigation(val context: Context) : AbstractComponent<FlowContent, UL>() {
     fun item(name: String, url: String) = initComponent(NavigationItem(name, url))
 
     override fun FlowContent.render() {
