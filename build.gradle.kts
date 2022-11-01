@@ -17,7 +17,7 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
     implementation(kotlin("reflect"))
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.assertj:assertj-core:3.23.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
