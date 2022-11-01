@@ -6,7 +6,7 @@ class Context(
     val linkName: String
 )
 
-class Document(val context: Context) : Component<HTML, FlowContent>() {
+class Document(private val context: Context) : Component<HTML, FlowContent>() {
     fun navigation(init: Navigation.() -> Unit) = initComponent(Navigation(context), init)
 
     override fun HTML.render() {
