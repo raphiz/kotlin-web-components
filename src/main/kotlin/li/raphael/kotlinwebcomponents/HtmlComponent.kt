@@ -10,9 +10,9 @@ interface HtmlComponent<RECEIVER : Tag, CHILD_RECEIVER : Tag> : SemanticComponen
         children
             .filterIsInstance<HtmlComponent<*, *>>()
             .forEach { child ->
-                val childd: HtmlComponent<CHILD_RECEIVER, *> = @Suppress("UNCHECKED_CAST")
+                val childComponent: HtmlComponent<CHILD_RECEIVER, *> = @Suppress("UNCHECKED_CAST")
                 (child as HtmlComponent<CHILD_RECEIVER, *>)
-                childd.apply {
+                childComponent.apply {
                     tagConsumer.apply {
                         render()
                     }
