@@ -10,7 +10,7 @@ abstract class Component<RECEIVER : Tag, CHILD_RECEIVER : Tag> :
     HtmlComponent<RECEIVER, CHILD_RECEIVER> {
     override val children = arrayListOf<SemanticComponent>()
 
-    protected fun <T : SemanticComponent> initComponent(component: T, init: (T.() -> Unit)? = null): T {
+    fun <T : SemanticComponent> initComponent(component: T, init: (T.() -> Unit)? = null): T {
         if (init != null) component.init()
         children.add(component)
         return component
